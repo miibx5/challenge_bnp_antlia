@@ -34,9 +34,8 @@ internal class ProdutoCosifRepositoryTest : IntegrationConfigurationTests() {
 		val productToBeSave = ProdutoBuilder.withDescription("Teste").withStatus(true).build()
 		val savedProduct = produtoRepository.save(productToBeSave)
 		val productId = savedProduct.id!!
-
 		val produtoCosifToBeSave = ProdutoCosifBuilder.withId(ProdutoCosifPKBuilder.withCodProduct(productId).build())
-			.withClassification("Classificação").withStatus(true).build()
+			.withClassification("CL4Q13").withStatus(true).build()
 
 		val produtoCosifSaved = repository.save(produtoCosifToBeSave)
 

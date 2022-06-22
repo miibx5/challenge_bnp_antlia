@@ -12,6 +12,7 @@ Codification.................: UTF-8
 package br.com.edersystems.backend.configuration.sql
 
 enum class Commands(val commandSql: String) {
+	CLEAR_MOVEMENT_MANUAL_TABLE("DELETE FROM MOVIMENTO_MANUAL"),
 	CLEAR_PRODUCT_COSIF_TABLE("DELETE FROM PRODUTO_COSIF"),
 	CLEAR_PRODUCT_TABLE("DELETE FROM PRODUTO")
 }
