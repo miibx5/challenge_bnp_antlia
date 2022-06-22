@@ -12,24 +12,24 @@ val snippetsDir = file("build/generated-snippets")
 val springmockkVersion: String by project
 
 plugins {
-	id("org.springframework.boot") version "2.7.0"
-	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	id("org.asciidoctor.convert") version "1.5.8"
-	 id("io.gitlab.arturbosch.detekt").version("1.20.0")
-	kotlin("jvm") version "1.7.0"
-	kotlin("plugin.spring") version "1.7.0"
-	kotlin("plugin.jpa") version "1.7.0"
+    id("org.springframework.boot") version "2.7.0"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.asciidoctor.convert") version "1.5.8"
+    id("io.gitlab.arturbosch.detekt").version("1.20.0")
+    kotlin("jvm") version "1.7.0"
+    kotlin("plugin.spring") version "1.7.0"
+    kotlin("plugin.jpa") version "1.7.0"
 }
 
 group = "br.com.edersystems"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_18
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	// DATABASE DEPENDENCIES
+    // DATABASE DEPENDENCIES
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("org.postgresql:postgresql")
