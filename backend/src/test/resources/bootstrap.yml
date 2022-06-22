@@ -1,0 +1,45 @@
+spring:
+    # Profile Configuration
+    profiles:
+        active: test
+    application:
+        name: demo-application
+    # DataSource Configuration
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://127.0.0.1:5432/movement_test?user=postgres&password=movement
+        sql-script-encoding: UTF-8
+    # FlyWay Configuration
+    flyway:
+        enabled: true
+    # JACKSON properties
+    jackson:
+        property-naming-strategy: LOWER_CAMEL_CASE
+    # JPA properties
+    jpa:
+        hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            jdbc:
+                lob:
+                    non_contextual_creation: true
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            show-sql: true
+            database: postgresql
+            database-platform: org.hibernate.dialect.PostgreSQLDialect
+            properties:
+                hibernate:
+                    format_sql: true
+            open-in-view: false
+    # Logger configuration
+    logging:
+        pattern:
+            console: "%d %-5level %logger : %msg%n"
+        level:
+            org.springframework: info
+            org.hibernate: debug
+# Server Configuration
+server:
+    port: 6060  #set your port
+    servlet:
+        context-path: "/movement"
