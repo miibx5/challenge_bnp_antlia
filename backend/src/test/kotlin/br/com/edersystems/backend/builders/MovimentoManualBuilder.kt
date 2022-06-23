@@ -11,8 +11,8 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.builders
 
-import br.com.edersystems.backend.infrastructure.entities.MovimentoManual
-import br.com.edersystems.backend.infrastructure.entities.MovimentoManualPK
+import br.com.edersystems.backend.infrastructure.entities.movement.MovimentoManual
+import br.com.edersystems.backend.infrastructure.entities.movement.MovimentoManualPK
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

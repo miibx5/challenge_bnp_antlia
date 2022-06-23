@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 22/06/2022 12:08:37
+Creation Date ...............: 23/06/2022 12:17:19
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -9,21 +9,18 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.infrastructure.entities
+package br.com.edersystems.backend.application.controllers.product.resources
 
-import java.io.Serializable
+import br.com.edersystems.backend.infrastructure.entities.product.Produto
 import java.util.UUID
-import javax.persistence.Column
-import javax.persistence.Embeddable
 
-@Embeddable
-class ProdutoCosifPK(
-	@Column(name = "COD_PRODUTO")
-	val codProduto: UUID,
-	@Column(name = "COD_COSIF")
-	val codCosif: UUID = UUID.randomUUID()
-) : Serializable {
+class ProductResponse private constructor(val id: UUID, val description: String, val status: Boolean) {
+
 	companion object {
-		private const val serialVersionUID = -91L
+		fun toResponse(produto: Produto) = ProductResponse(
+			id = produto.id!!,
+			description = produto.description,
+			status = produto.status
+		)
 	}
 }
