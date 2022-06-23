@@ -9,7 +9,7 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.infrastructure.entities
+package br.com.edersystems.backend.infrastructure.entities.movement
 
 import java.io.Serializable
 import java.math.BigDecimal

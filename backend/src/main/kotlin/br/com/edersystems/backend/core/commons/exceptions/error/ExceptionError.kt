@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 22/06/2022 12:40:32
+Creation Date ...............: 23/06/2022 11:58:10
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -9,12 +9,13 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.infrastructure.repositories
+package br.com.edersystems.backend.core.commons.exceptions.error
 
-import br.com.edersystems.backend.infrastructure.entities.product.Produto
-import java.util.UUID
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
-
-@Repository
-interface ProdutoRepository : JpaRepository<Produto, UUID>
+data class ExceptionError private constructor(
+	val code: String,
+	val message: String,
+) {
+	companion object {
+		fun create(code: String, message: String) = ExceptionError(code = code, message = message)
+	}
+}
