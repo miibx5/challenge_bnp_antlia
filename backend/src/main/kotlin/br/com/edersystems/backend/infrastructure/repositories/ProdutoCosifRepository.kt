@@ -11,8 +11,8 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.infrastructure.repositories
 
-import br.com.edersystems.backend.infrastructure.entities.ProdutoCosif
-import br.com.edersystems.backend.infrastructure.entities.ProdutoCosifPK
+import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosif
+import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosifPK
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
