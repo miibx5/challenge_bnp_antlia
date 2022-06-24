@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 22/06/2022 16:35:13
+Creation Date ...............: 22/06/2022 14:36:18
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -11,10 +11,10 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.infrastructure.repositories
 
-import br.com.edersystems.backend.infrastructure.entities.movement.MovimentoManual
-import br.com.edersystems.backend.infrastructure.entities.movement.MovimentoManualPK
+import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosif
+import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosifPK
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MovimentoManualRepository : JpaRepository<MovimentoManual, MovimentoManualPK>
+interface IProdutoCosifRepository : JpaRepository<ProdutoCosif, ProdutoCosifPK>

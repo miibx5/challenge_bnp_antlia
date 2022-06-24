@@ -12,88 +12,90 @@ val snippetsDir = file("build/generated-snippets")
 val springmockkVersion: String by project
 
 plugins {
-    id("org.springframework.boot") version "2.7.0"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.asciidoctor.convert") version "1.5.8"
-    id("io.gitlab.arturbosch.detekt").version("1.20.0")
-    kotlin("jvm") version "1.7.0"
-    kotlin("plugin.spring") version "1.7.0"
-    kotlin("plugin.jpa") version "1.7.0"
+	id("org.springframework.boot") version "2.7.0"
+	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	id("org.asciidoctor.convert") version "1.5.8"
+	id("io.gitlab.arturbosch.detekt").version("1.20.0")
+	kotlin("jvm") version "1.7.0"
+	kotlin("plugin.spring") version "1.7.0"
+	kotlin("plugin.jpa") version "1.7.0"
 }
 
 group = "br.com.edersystems"
 java.sourceCompatibility = JavaVersion.VERSION_18
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    // DATABASE DEPENDENCIES
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("org.postgresql:postgresql")
+	// DATABASE DEPENDENCIES
+	implementation("org.flywaydb:flyway-core")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly("org.postgresql:postgresql")
 
-    // DETEKT DEPENDENCIES
-    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
-    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detektVersion")
+	// DETEKT DEPENDENCIES
+	detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
+	detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detektVersion")
 
-    // JACKSON DEPENDENCIES
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonFasterXmlVersion")
+	// JACKSON DEPENDENCIES
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonFasterXmlVersion")
 
-    // KOTLIN DEPENDENCIES
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.beust:klaxon:5.6")
 
-    // WEB DEPENDENCIES
-    implementation("org.springframework.boot:spring-boot-starter-web")
+	// KOTLIN DEPENDENCIES
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // BYTE CODE MANIPULATION
-    implementation("org.javassist:javassist:$javassistVersion")
+	// WEB DEPENDENCIES
+	implementation("org.springframework.boot:spring-boot-starter-web")
 
-    //TEST IMPLEMENTATION DEPENDENCIES
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
-    testImplementation("org.amshove.kluent:kluent:$kluentVersion")
-    testImplementation("io.mockk:mockk:$mockkVersion")
-    implementation("com.ninja-squad:springmockk:$springmockkVersion")
+	// BYTE CODE MANIPULATION
+	implementation("org.javassist:javassist:$javassistVersion")
+
+	//TEST IMPLEMENTATION DEPENDENCIES
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+	testImplementation("org.amshove.kluent:kluent:$kluentVersion")
+	testImplementation("io.mockk:mockk:$mockkVersion")
+	implementation("com.ninja-squad:springmockk:$springmockkVersion")
 }
 
 tasks {
 
-    asciidoctor {
-        inputs.dir(snippetsDir)
-        dependsOn(test)
-    }
+	asciidoctor {
+		inputs.dir(snippetsDir)
+		dependsOn(test)
+	}
 
-    getByName<Jar>("jar") {
-        enabled = false
-    }
+	getByName<Jar>("jar") {
+		enabled = false
+	}
 
-    detekt {
-        autoCorrect = true
-        config = files("./detekt-config.yml")
-        source = files("./src")
-        toolVersion = detektVersion
-    }
+	detekt {
+		autoCorrect = true
+		config = files("./detekt-config.yml")
+		source = files("./src")
+		toolVersion = detektVersion
+	}
 
-    withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "18"
-        }
-    }
+	withType<KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "18"
+		}
+	}
 
-    withType<Test> {
-        useJUnitPlatform()
+	withType<Test> {
+		useJUnitPlatform()
 
-        testLogging {
-            events(failed, passed, skipped)
-        }
-    }
+		testLogging {
+			events(failed, passed, skipped)
+		}
+	}
 
-    test {
-        outputs.dir(snippetsDir)
-    }
+	test {
+		outputs.dir(snippetsDir)
+	}
 }

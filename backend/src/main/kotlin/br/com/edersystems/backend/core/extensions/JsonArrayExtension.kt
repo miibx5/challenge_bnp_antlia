@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 23/06/2022 19:04:16
+Creation Date ...............: 24/06/2022 11:47:15
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -11,12 +11,7 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.core.extensions
 
-import br.com.edersystems.backend.core.commons.jackson.ObjectMapperProvider
-import com.fasterxml.jackson.databind.JsonNode
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
 
-private const val DATA = "data"
-
-fun String.getDataFromJson(field: String): JsonNode {
-	val json = ObjectMapperProvider.provider().readTree(this)
-	return json.get(DATA)[field]
-}
+fun JsonArray<JsonObject>.getField(field: String) = this.map { it.getValue(field) }.firstOrNull() as String
