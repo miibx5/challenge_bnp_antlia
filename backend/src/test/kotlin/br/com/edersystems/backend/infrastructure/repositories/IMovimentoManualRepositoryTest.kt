@@ -27,15 +27,15 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 
-internal class MovimentoManualRepositoryTest : IntegrationConfigurationTests() {
+internal class IMovimentoManualRepositoryTest : IntegrationConfigurationTests() {
 	@Autowired
-	private lateinit var repository: MovimentoManualRepository
+	private lateinit var repository: IMovimentoManualRepository
 
 	@Autowired
-	private lateinit var produtoCosifRepository: ProdutoCosifRepository
+	private lateinit var IProdutoCosifRepository: IProdutoCosifRepository
 
 	@Autowired
-	private lateinit var produtoRepository: ProdutoRepository
+	private lateinit var produtoRepository: IProdutoRepository
 
 	@Test
 	fun `Should save manual movement`() {
@@ -43,7 +43,7 @@ internal class MovimentoManualRepositoryTest : IntegrationConfigurationTests() {
 		val codProduto = produtoRepository.save(productToBeSave).id!!
 		val produtoCosifToBeSave = ProdutoCosifBuilder.withId(ProdutoCosifPKBuilder.withCodProduct(codProduto).build())
 			.withClassification("CL4Q14").withStatus(true).build()
-		val produtoCosif = produtoCosifRepository.save(produtoCosifToBeSave).id.codCosif
+		val produtoCosif = IProdutoCosifRepository.save(produtoCosifToBeSave).id.codCosif
 		val movementManalPk = MovimentoManualPKBuilder.withCodCosif(produtoCosif)
 			.withCodProduto(codProduto)
 			.withMonth(4)

@@ -19,9 +19,9 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 
-internal class ProdutoRepositoryTest : IntegrationConfigurationTests() {
+internal class IProdutoRepositoryTest : IntegrationConfigurationTests() {
 	@Autowired
-	private lateinit var repository: ProdutoRepository
+	private lateinit var repository: IProdutoRepository
 
 	@Test
 	fun `Should save product`() {

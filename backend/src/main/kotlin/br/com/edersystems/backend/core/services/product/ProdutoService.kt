@@ -19,14 +19,15 @@ import br.com.edersystems.backend.core.exceptions.ProdutoException
 import br.com.edersystems.backend.core.services.AbstractService
 import br.com.edersystems.backend.core.services.handleerror.HandleErrorService
 import br.com.edersystems.backend.infrastructure.entities.product.Produto
-import br.com.edersystems.backend.infrastructure.repositories.ProdutoRepository
+import br.com.edersystems.backend.infrastructure.exceptions.product.ProdutoNotFoundException
+import br.com.edersystems.backend.infrastructure.repositories.IProdutoRepository
 import br.com.edersystems.backend.infrastructure.util.MessageCodeUtil
 import java.util.Objects
 import java.util.UUID
 import org.springframework.stereotype.Service
 
 @Service
-class ProdutoService(private val repository: ProdutoRepository, private val handleErrorService: HandleErrorService) :
+class ProdutoService(private val repository: IProdutoRepository, private val handleErrorService: HandleErrorService) :
 	AbstractService() {
 
 	override val errors: Errors = createErrors()
@@ -35,11 +36,12 @@ class ProdutoService(private val repository: ProdutoRepository, private val hand
 
 	fun delete(productId: UUID) {
 		val retrievedProduct = getById(productId)
-		saveProduct(retrievedProduct.updateStatus(false))
+		val productToUpdate = retrievedProduct.updateStatus(false)
+		saveProduct(productToUpdate)
 	}
 
 	fun getById(productId: UUID): Produto = repository.findById(productId).orElseThrow {
-		throw ProdutoException(createErrors(MessageCodeUtil.DEFAULT, productId))
+		throw ProdutoNotFoundException(createErrors(MessageCodeUtil.PROD_0002, productId))
 	}
 
 	fun patchProduct(productId: UUID, request: PatchProductRequest): Produto {
@@ -73,7 +75,7 @@ class ProdutoService(private val repository: ProdutoRepository, private val hand
 	}
 
 	private fun validatePatchProductRequest(request: PatchProductRequest): ExceptionError? {
-		return if ((request.description.isBlank()) && (Objects.isNull(request.status))) {
+		return if ((request.description?.isBlank() == true) && (Objects.isNull(request.status))) {
 			handleErrorService.createError(MessageCodeUtil.DEFAULT)
 		} else null
 	}

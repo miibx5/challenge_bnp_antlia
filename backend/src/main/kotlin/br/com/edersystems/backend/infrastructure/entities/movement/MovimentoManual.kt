@@ -32,13 +32,11 @@ data class MovimentoManual(
 	@Column(name = "COD_USUARIO")
 	val userCode: String,
 	@Column(name = "VAL_VALOR")
-	val amount: BigDecimal
-) {
+	val amount: BigDecimal,
 	@CreationTimestamp
 	@Column(name = "CREATED_AT")
-	val createdAt: LocalDateTime? = null
-
+	val createdAt: LocalDateTime? = null,
 	@UpdateTimestamp
 	@Column(name = "UPDATED_AT")
 	val updatedAt: LocalDateTime? = null
-}
+)

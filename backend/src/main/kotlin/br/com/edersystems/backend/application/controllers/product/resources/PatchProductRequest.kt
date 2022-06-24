@@ -11,4 +11,4 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.application.controllers.product.resources
 
-data class PatchProductRequest private constructor(val description: String, val status: Boolean)
+data class PatchProductRequest private constructor(val description: String?, val status: Boolean?)

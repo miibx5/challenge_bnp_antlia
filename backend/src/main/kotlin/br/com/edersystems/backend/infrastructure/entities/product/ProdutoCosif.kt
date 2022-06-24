@@ -27,13 +27,11 @@ data class ProdutoCosif(
 	@Column(name = "COD_CLASSIFICACAO")
 	val classification: String,
 	@Column(name = "STA_STATUS")
-	val status: Boolean
-) {
+	val status: Boolean,
 	@CreationTimestamp
 	@Column(name = "CREATED_AT")
-	val createdAt: LocalDateTime? = null
-
+	val createdAt: LocalDateTime? = null,
 	@UpdateTimestamp
 	@Column(name = "UPDATED_AT")
 	val updatedAt: LocalDateTime? = null
-}
+)
