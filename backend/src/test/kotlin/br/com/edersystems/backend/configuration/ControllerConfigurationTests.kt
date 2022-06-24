@@ -11,6 +11,11 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.configuration
 
+import br.com.edersystems.backend.core.commons.jackson.ObjectMapperProvider
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
+import com.fasterxml.jackson.databind.JsonNode
 import java.nio.charset.StandardCharsets
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration
 import org.junit.jupiter.api.BeforeEach
@@ -18,13 +23,13 @@ import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.mock.web.MockMultipartFile
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
 
@@ -37,6 +42,15 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 		.builder()
 		.withIgnoreAllExpectedNullFields(true)
 		.build()
+	val code = "code"
+	val description = "description"
+	val errors = "errors"
+	val id = "id"
+	val message = "message"
+	private val data = "data"
+	private val uuidRegexValidator = """
+			^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}${'$'}
+		""".trimIndent()
 
 	@Autowired
 	lateinit var mockMvc: MockMvc
@@ -46,14 +60,11 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 
 	@BeforeEach
 	fun init() {
-
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
 	}
 
 	fun delete(path: String): Pair<HttpStatus, String> {
-
-		val response =
-			mockMvc.perform(MockMvcRequestBuilders.delete(path).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn()
+		val response = mockMvc.perform(MockMvcRequestBuilders.delete(path).accept(APPLICATION_JSON_VALUE)).andReturn()
 
 		return getResponse(response)
 	}
@@ -62,7 +73,7 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 		val response = mockMvc.perform(
 			MockMvcRequestBuilders.get("$path?$queryString")
 				.characterEncoding(StandardCharsets.UTF_8)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.contentType(APPLICATION_JSON_VALUE)
 		).andReturn()
 
 		return getResponse(response)
@@ -70,8 +81,8 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 
 	fun patch(path: String, requestBody: String): Pair<HttpStatus, String> {
 		val response = mockMvc.perform(
-			MockMvcRequestBuilders.patch(path)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
+			patch(path)
+				.contentType(APPLICATION_JSON_VALUE)
 				.characterEncoding(StandardCharsets.UTF_8)
 				.content(requestBody)
 		).andReturn()
@@ -81,8 +92,8 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 
 	fun post(path: String, requestBody: String): Pair<HttpStatus, String> {
 		val response = mockMvc.perform(
-			MockMvcRequestBuilders.post(path)
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
+			post(path)
+				.contentType(APPLICATION_JSON_VALUE)
 				.characterEncoding(StandardCharsets.UTF_8)
 				.content(requestBody)
 		).andReturn()
@@ -90,24 +101,13 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 		return getResponse(response)
 	}
 
-	fun postWithMultipartFile(
-		path: String,
-		params: Map<String, String>,
-		file: MockMultipartFile
-	): Pair<HttpStatus, String> {
-		val multiPartRequestBuilder = RestDocumentationRequestBuilders.multipart(path).apply {
-			file(file)
-			params.forEach { (paramName, value) ->
-				param(paramName, value)
-			}
-		}
-		val response = mockMvc.perform(
-			multiPartRequestBuilder.accept(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
-		).andReturn()
+	internal fun getJsonNode(stringJson: String): JsonNode = ObjectMapperProvider.provider().readTree(stringJson)
+	internal fun getFieldFromJsonNode(stringJson: String, field: String): String = getJsonNode(stringJson)
+		.get(data)[field].textValue()
 
-		return getResponse(response)
-	}
-
+	fun isUUID(stringJson: String): Boolean = stringJson.matches(Regex(uuidRegexValidator))
+	fun getJsonObject(stringJson: String) = Parser.default().parse(StringBuilder(stringJson)) as JsonObject
+	fun getValueFromJsonObject(jsonObject: JsonObject) = jsonObject.getValue(errors) as JsonArray<JsonObject>
 	private fun getResponse(response: MvcResult): Pair<HttpStatus, String> {
 		val contentToReturn = response.response.getContentAsString(StandardCharsets.UTF_8)
 		val statusToReturn = HttpStatus.valueOf(response.response.status)

@@ -22,12 +22,12 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
 
-internal class ProdutoCosifRepositoryTest : IntegrationConfigurationTests() {
+internal class IProdutoCosifRepositoryTest : IntegrationConfigurationTests() {
 	@Autowired
-	private lateinit var repository: ProdutoCosifRepository
+	private lateinit var repository: IProdutoCosifRepository
 
 	@Autowired
-	private lateinit var produtoRepository: ProdutoRepository
+	private lateinit var produtoRepository: IProdutoRepository
 
 	@Test
 	fun `Should save product cosif`() {

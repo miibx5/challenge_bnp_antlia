@@ -14,4 +14,5 @@ package br.com.edersystems.backend.infrastructure.util
 object MessageCodeUtil {
 	const val DEFAULT = "DEFAULT"
 	const val PROD_0001 = "PROD-0001"
+	const val PROD_0002 = "PROD-0002"
 }
