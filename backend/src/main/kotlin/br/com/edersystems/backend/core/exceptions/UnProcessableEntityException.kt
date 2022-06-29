@@ -15,6 +15,7 @@ import br.com.edersystems.backend.core.commons.exceptions.BackendException
 import br.com.edersystems.backend.core.commons.exceptions.error.ExceptionError
 import org.springframework.http.HttpStatus
 
-class ProdutoException(override val errors: MutableSet<ExceptionError>) : BackendException() {
+class UnProcessableEntityException(override val errors: MutableSet<ExceptionError> = mutableSetOf()) :
+	BackendException() {
 	override fun status() = HttpStatus.UNPROCESSABLE_ENTITY
 }

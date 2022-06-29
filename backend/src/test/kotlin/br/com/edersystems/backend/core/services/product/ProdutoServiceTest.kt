@@ -17,7 +17,9 @@ import br.com.edersystems.backend.configuration.readjson.readJson
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should not be`
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 
 internal class ProdutoServiceTest : IntegrationConfigurationTests() {
 
@@ -33,5 +35,13 @@ internal class ProdutoServiceTest : IntegrationConfigurationTests() {
 
 		savedProduct.id `should not be` null
 		savedProduct.description `should be equal to` request.description
+	}
+
+	@Test
+	fun `Given an invalid product request data should not save product in database`() {
+		val requestBodyJson = readJson("product/request/dont_create_product")
+		val request = mapper.readValue(requestBodyJson, CreateProductRequest::class.java)
+
+		assertThrows<DataIntegrityViolationException> { service.create(request) }
 	}
 }

@@ -41,6 +41,10 @@ abstract class AbstractService {
 		return buildError(ex)
 	}
 
+	fun createError(code: String, data: Any): ExceptionError {
+		return buildError(code, getMessageWithParam(code, data))
+	}
+
 	fun createError(message: String, code: String = HttpStatus.BAD_REQUEST.name): ExceptionError {
 		return buildError(code, message)
 	}

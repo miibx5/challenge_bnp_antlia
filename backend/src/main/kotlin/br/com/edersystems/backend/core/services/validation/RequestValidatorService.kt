@@ -13,15 +13,23 @@ package br.com.edersystems.backend.core.services.validation
 
 import br.com.edersystems.backend.application.controllers.product.resources.CreateProductRequest
 import br.com.edersystems.backend.application.controllers.product.resources.PatchProductRequest
+import br.com.edersystems.backend.application.controllers.productcosif.resources.CreateProductCosifRequest
+import br.com.edersystems.backend.application.exception.RequestUnknownException
 import br.com.edersystems.backend.core.services.product.ProdutoService
+import br.com.edersystems.backend.core.services.productcosif.ProdutoCosifService
 import org.springframework.stereotype.Service
 
 @Service
-class RequestValidatorService(private val produtoService: ProdutoService) {
+class RequestValidatorService(
+	private val produtoService: ProdutoService,
+	private val produtoCosifService: ProdutoCosifService
+) {
 	fun validateRequest(request: Any) {
 		when (request) {
 			is CreateProductRequest -> produtoService.validateCreateProduct(request)
 			is PatchProductRequest -> produtoService.validatePatchProduct(request)
+			is CreateProductCosifRequest -> produtoCosifService.validateCreateProductCosifRequest(request)
+			else -> throw RequestUnknownException("Unknown request type: ${request.javaClass.name}")
 		}
 	}
 }
