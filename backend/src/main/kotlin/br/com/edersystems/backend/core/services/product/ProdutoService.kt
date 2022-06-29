@@ -15,9 +15,8 @@ import br.com.edersystems.backend.application.controllers.product.resources.Crea
 import br.com.edersystems.backend.application.controllers.product.resources.PatchProductRequest
 import br.com.edersystems.backend.core.commons.exceptions.error.Errors
 import br.com.edersystems.backend.core.commons.exceptions.error.ExceptionError
-import br.com.edersystems.backend.core.exceptions.ProdutoException
+import br.com.edersystems.backend.core.exceptions.UnProcessableEntityException
 import br.com.edersystems.backend.core.services.AbstractService
-import br.com.edersystems.backend.core.services.handleerror.HandleErrorService
 import br.com.edersystems.backend.infrastructure.entities.product.Produto
 import br.com.edersystems.backend.infrastructure.exceptions.product.ProdutoNotFoundException
 import br.com.edersystems.backend.infrastructure.repositories.IProdutoRepository
@@ -27,8 +26,7 @@ import java.util.UUID
 import org.springframework.stereotype.Service
 
 @Service
-class ProdutoService(private val repository: IProdutoRepository, private val handleErrorService: HandleErrorService) :
-	AbstractService() {
+class ProdutoService(private val repository: IProdutoRepository) : AbstractService() {
 
 	override val errors: Errors = createErrors()
 
@@ -55,7 +53,7 @@ class ProdutoService(private val repository: IProdutoRepository, private val han
 
 		validateProductDescription(request.description)?.let { errors.exceptionErrors.add(it) }
 
-		throwErrors(ProdutoException(errors.exceptionErrors))
+		throwErrors(UnProcessableEntityException(errors.exceptionErrors))
 	}
 
 	fun validatePatchProduct(request: PatchProductRequest) {
@@ -63,20 +61,22 @@ class ProdutoService(private val repository: IProdutoRepository, private val han
 
 		validatePatchProductRequest(request)?.let { errors.exceptionErrors.add(it) }
 
-		throwErrors(ProdutoException(errors.exceptionErrors))
+		throwErrors(UnProcessableEntityException(errors.exceptionErrors))
 	}
+
+	fun isExistsProduct(codProduto: UUID) = repository.findById(codProduto).isPresent
 
 	private fun saveProduct(produto: Produto) = repository.save(produto)
 
 	private fun validateProductDescription(description: String): ExceptionError? {
 		return if (description.isBlank()) {
-			handleErrorService.createError(MessageCodeUtil.PROD_0001)
+			createError(MessageCodeUtil.PROD_0001)
 		} else null
 	}
 
 	private fun validatePatchProductRequest(request: PatchProductRequest): ExceptionError? {
 		return if ((request.description?.isBlank() == true) && (Objects.isNull(request.status))) {
-			handleErrorService.createError(MessageCodeUtil.DEFAULT)
+			createError(MessageCodeUtil.DEFAULT)
 		} else null
 	}
 }

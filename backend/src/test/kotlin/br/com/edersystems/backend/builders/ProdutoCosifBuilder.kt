@@ -11,8 +11,8 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.builders
 
-import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosif
-import br.com.edersystems.backend.infrastructure.entities.product.ProdutoCosifPK
+import br.com.edersystems.backend.infrastructure.entities.product.cosif.ProdutoCosif
+import br.com.edersystems.backend.infrastructure.entities.product.cosif.ProdutoCosifPK
 import kotlin.properties.Delegates
 
 object ProdutoCosifBuilder {

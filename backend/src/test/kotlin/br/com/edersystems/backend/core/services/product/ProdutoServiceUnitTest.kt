@@ -13,7 +13,6 @@ package br.com.edersystems.backend.core.services.product
 
 import br.com.edersystems.backend.application.controllers.product.resources.CreateProductRequest
 import br.com.edersystems.backend.configuration.UnitTestsConfiguration
-import br.com.edersystems.backend.core.services.handleerror.HandleErrorService
 import br.com.edersystems.backend.infrastructure.entities.product.Produto
 import br.com.edersystems.backend.infrastructure.repositories.IProdutoRepository
 import io.mockk.every
@@ -24,6 +23,8 @@ import io.mockk.verify
 import java.util.UUID
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
+import org.springframework.dao.DataIntegrityViolationException
 
 internal class ProdutoServiceUnitTest : UnitTestsConfiguration() {
 
@@ -33,16 +34,14 @@ internal class ProdutoServiceUnitTest : UnitTestsConfiguration() {
 	@MockK
 	private lateinit var repository: IProdutoRepository
 
-	@MockK
-	private lateinit var handleErrorService: HandleErrorService
-
 	@Test
 	fun `When a valid request, should save product in database`() {
+		val productDescription = "Teste Product"
 		val request = mockk<CreateProductRequest> {
-			every { description } returns "Teste Product"
+			every { description } returns productDescription
 		}
 		val createdProduct = mockk<Produto> {
-			every { description } returns "Teste Product"
+			every { description } returns productDescription
 			every { id } returns UUID.fromString("2D25BEDC-D813-4C11-B26E-3CE8F0F2C5FD")
 			every { status } returns true
 		}
@@ -50,6 +49,26 @@ internal class ProdutoServiceUnitTest : UnitTestsConfiguration() {
 		every { repository.save(request.toProduto()) } returns createdProduct
 
 		assertDoesNotThrow { service.create(request) }
+		verify(exactly = 1) { repository.save(request.toProduto()) }
+	}
+
+	@Test
+	fun `When an invalid request, should not save product in database`() {
+		val emptyProductDescription = ""
+		val exceptionMessage = "could not execute statement"
+		val request = mockk<CreateProductRequest> {
+			every { description } returns emptyProductDescription
+		}
+		val createdProduct = mockk<Produto> {
+			every { description } returns emptyProductDescription
+			every { id } returns UUID.fromString("2D25BEDC-D813-4C11-B26E-3CE8F0F2C5FD")
+			every { status } returns true
+		}
+
+		every { request.toProduto() } returns createdProduct
+		every { repository.save(request.toProduto()) } throws DataIntegrityViolationException(exceptionMessage)
+
+		assertThrows<DataIntegrityViolationException> { service.create(request) }
 		verify(exactly = 1) { repository.save(request.toProduto()) }
 	}
 }
