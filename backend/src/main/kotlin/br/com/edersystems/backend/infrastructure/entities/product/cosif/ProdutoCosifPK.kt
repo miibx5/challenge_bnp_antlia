@@ -9,7 +9,7 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.infrastructure.entities.product
+package br.com.edersystems.backend.infrastructure.entities.product.cosif
 
 import java.io.Serializable
 import java.util.UUID

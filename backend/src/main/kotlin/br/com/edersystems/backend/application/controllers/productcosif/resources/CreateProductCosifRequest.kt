@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 22/06/2022 15:02:04
+Creation Date ...............: 28/06/2022 18:14:55
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -9,16 +9,15 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.builders
+package br.com.edersystems.backend.application.controllers.productcosif.resources
 
+import br.com.edersystems.backend.infrastructure.entities.product.cosif.ProdutoCosif
 import br.com.edersystems.backend.infrastructure.entities.product.cosif.ProdutoCosifPK
 import java.util.UUID
 
-object ProdutoCosifPKBuilder {
-	lateinit var codProduto: UUID
-		private set
+data class CreateProductCosifRequest private constructor(val codProduto: UUID, val classificacao: String) {
 
-	fun build() = ProdutoCosifPK(codProduto = codProduto)
+	fun toProdutoCosif() = ProdutoCosif(id = toProdutoCosifPK(), classification = classificacao, status = true)
 
-	fun withCodProduct(codProduto: UUID) = apply { this.codProduto = codProduto }
+	private fun toProdutoCosifPK() = ProdutoCosifPK(codProduto)
 }

@@ -43,6 +43,8 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 		.withIgnoreAllExpectedNullFields(true)
 		.build()
 	val code = "code"
+	val codCosif = "codCosif"
+	val codProduto = "codProduto"
 	val description = "description"
 	val errors = "errors"
 	val id = "id"

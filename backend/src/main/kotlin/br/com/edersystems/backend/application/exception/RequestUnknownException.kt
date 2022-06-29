@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 23/06/2022 12:02:11
+Creation Date ...............: 28/06/2022 18:45:39
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -9,12 +9,6 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.infrastructure.util
+package br.com.edersystems.backend.application.exception
 
-object MessageCodeUtil {
-	const val DEFAULT = "DEFAULT"
-	const val PROD_0001 = "PROD-0001"
-	const val PROD_0002 = "PROD-0002"
-	const val PROD_0003 = "PROD-0003"
-	const val PROD_0004 = "PROD-0004"
-}
+class RequestUnknownException(override val message: String) : UnsupportedOperationException(message)
