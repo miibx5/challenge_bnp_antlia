@@ -38,7 +38,7 @@ internal class ProdutoServiceTest : IntegrationConfigurationTests() {
 	}
 
 	@Test
-	fun `Given an invalid product request data should not save product in database`() {
+	fun `Given an invalid product request data should throw DataIntegrityViolationException`() {
 		val requestBodyJson = readJson("product/request/dont_create_product")
 		val request = mapper.readValue(requestBodyJson, CreateProductRequest::class.java)
 

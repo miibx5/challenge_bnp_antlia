@@ -6,6 +6,7 @@ val skipped: String by project
 val detektVersion: String by project
 val jacksonFasterXmlVersion: String by project
 val javassistVersion: String by project
+val klaxonVersion: String by project
 val kluentVersion: String by project
 val mockkVersion: String by project
 val snippetsDir = file("build/generated-snippets")
@@ -40,9 +41,9 @@ dependencies {
 
 	// JACKSON DEPENDENCIES
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonFasterXmlVersion")
 
-	implementation("com.beust:klaxon:5.6")
+	// KLAXON DEPENDENCIES
+	implementation("com.beust:klaxon:$klaxonVersion")
 
 	// KOTLIN DEPENDENCIES
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

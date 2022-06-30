@@ -11,7 +11,6 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.configuration
 
-import br.com.edersystems.backend.core.commons.jackson.ObjectMapperProvider
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
@@ -45,7 +44,7 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 	val code = "code"
 	val codCosif = "codCosif"
 	val codProduto = "codProduto"
-	val description = "description"
+	val descricao = "descricao"
 	val errors = "errors"
 	val id = "id"
 	val message = "message"
@@ -103,9 +102,10 @@ internal class ControllerConfigurationTests : IntegrationConfigurationTests() {
 		return getResponse(response)
 	}
 
-	internal fun getJsonNode(stringJson: String): JsonNode = ObjectMapperProvider.provider().readTree(stringJson)
-	internal fun getFieldFromJsonNode(stringJson: String, field: String): String = getJsonNode(stringJson)
-		.get(data)[field].textValue()
+	fun getJsonNode(stringJson: String): JsonNode = mapper.readTree(stringJson)
+	fun getStringJsonFromJsonNode(stringJson: String): JsonNode = getJsonNode(stringJson).get(data)
+	fun getFieldFromJsonNode(stringJson: String, field: String): String = getStringJsonFromJsonNode(stringJson)
+		.get(field).textValue()
 
 	fun isUUID(stringJson: String): Boolean = stringJson.matches(Regex(uuidRegexValidator))
 	fun getJsonObject(stringJson: String) = Parser.default().parse(StringBuilder(stringJson)) as JsonObject

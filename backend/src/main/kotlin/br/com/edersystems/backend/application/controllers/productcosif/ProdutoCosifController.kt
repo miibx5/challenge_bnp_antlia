@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/produto-cosif", produces = [APPLICATION_JSON_UTF8_VALUE])
-class ProductCosifController(private val service: ProdutoCosifService) {
+class ProdutoCosifController(private val service: ProdutoCosifService) {
 
 	@PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
 	@RequestValidator

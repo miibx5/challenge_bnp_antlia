@@ -1,7 +1,7 @@
 /*
 ...........................................................
 Project .....................: challenge_bnp_antlia
-Creation Date ...............: 23/06/2022 11:30:13
+Creation Date ...............: 23/06/2022 18:34:58
 Developer....................: eder
 Copyright....................: 2022
 Codification.................: UTF-8
@@ -9,19 +9,13 @@ Codification.................: UTF-8
  Éder L. Costa - © Copyright 2022 - All Rights Reserved
 ...........................................................
 */
-package br.com.edersystems.backend.core.commons.exceptions
+package br.com.edersystems.backend.infrastructure.exceptions.movement
 
-import br.com.edersystems.backend.application.resources.ResponseTO
+import br.com.edersystems.backend.core.commons.exceptions.BackendException
 import br.com.edersystems.backend.core.commons.exceptions.error.ExceptionError
-import br.com.edersystems.backend.core.factory.ResponseTOFactory
 import org.springframework.http.HttpStatus
 
-abstract class BackendException : RuntimeException() {
-	
-	abstract val errors: MutableSet<ExceptionError>
-	abstract fun status(): HttpStatus
-
-	fun response(): ResponseTO {
-		return ResponseTOFactory.createErrors(errors.toList(), status().name)
-	}
+class MovementManualNotFoundException(override val errors: MutableSet<ExceptionError> = mutableSetOf()) :
+	BackendException() {
+	override fun status() = HttpStatus.NOT_FOUND
 }

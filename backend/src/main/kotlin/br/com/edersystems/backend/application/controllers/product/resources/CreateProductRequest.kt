@@ -14,5 +14,5 @@ package br.com.edersystems.backend.application.controllers.product.resources
 import br.com.edersystems.backend.infrastructure.entities.product.Produto
 
 data class CreateProductRequest private constructor(val description: String) {
-	fun toProduto() = Produto(description = this.description, status = true)
+	fun toProduto() = Produto(description = this.description)
 }

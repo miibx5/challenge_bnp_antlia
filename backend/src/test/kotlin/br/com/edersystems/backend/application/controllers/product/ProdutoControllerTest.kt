@@ -100,7 +100,7 @@ internal class ProdutoControllerTest : ControllerConfigurationTests() {
 		val requestBody = readJson("product/request/update_product_with_success")
 
 		val (status, response) = patch("/produto/$productId", requestBody)
-		val actual = getFieldFromJsonNode(response, description)
+		val actual = getFieldFromJsonNode(response, descricao)
 
 		status `should be equal to` HttpStatus.ACCEPTED
 		actual `should be equal to` expected
