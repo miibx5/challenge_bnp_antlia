@@ -14,12 +14,12 @@ package br.com.edersystems.backend.application.controllers.product.resources
 import br.com.edersystems.backend.infrastructure.entities.product.Produto
 import java.util.UUID
 
-class ProductResponse private constructor(val id: UUID, val description: String, val status: Boolean) {
+class ProductResponse private constructor(val id: UUID, val descricao: String, val status: Boolean) {
 
 	companion object {
 		fun toResponse(produto: Produto) = ProductResponse(
 			id = produto.id!!,
-			description = produto.description,
+			descricao = produto.description,
 			status = produto.status
 		)
 	}

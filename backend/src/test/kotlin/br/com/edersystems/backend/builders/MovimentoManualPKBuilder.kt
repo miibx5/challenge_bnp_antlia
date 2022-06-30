@@ -11,16 +11,18 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.builders
 
+import br.com.edersystems.backend.core.extensions.setScaleFour
+import br.com.edersystems.backend.core.extensions.setScaleThree
+import br.com.edersystems.backend.core.extensions.setScaleTwo
 import br.com.edersystems.backend.infrastructure.entities.movement.MovimentoManualPK
 import java.math.BigDecimal
 import java.util.UUID
-import kotlin.properties.Delegates
 
 object MovimentoManualPKBuilder {
 
-	var month by Delegates.notNull<Short>()
+	lateinit var month: BigDecimal
 		private set
-	var year by Delegates.notNull<Short>()
+	lateinit var year: BigDecimal
 		private set
 	lateinit var numberLaunch: BigDecimal
 		private set
@@ -37,9 +39,9 @@ object MovimentoManualPKBuilder {
 		codCosif = codCosif
 	)
 
-	fun withMonth(month: Short) = apply { this.month = month }
-	fun withYear(year: Short) = apply { this.year = year }
-	fun withNumberLaunch(numberLaunch: BigDecimal) = apply { this.numberLaunch = numberLaunch }
+	fun withMonth(month: BigDecimal) = apply { this.month = month.setScaleTwo() }
+	fun withYear(year: BigDecimal) = apply { this.year = year.setScaleFour() }
+	fun withNumberLaunch(numberLaunch: BigDecimal) = apply { this.numberLaunch = numberLaunch.setScaleThree() }
 	fun withCodProduto(codProduto: UUID) = apply { this.codProduto = codProduto }
 	fun withCodCosif(codCosif: UUID) = apply { this.codCosif = codCosif }
 }

@@ -20,9 +20,9 @@ import javax.persistence.Embeddable
 @Embeddable
 data class MovimentoManualPK(
 	@Column(name = "DAT_MES")
-	val month: Short,
+	val month: BigDecimal,
 	@Column(name = "DAT_ANO")
-	val year: Short,
+	val year: BigDecimal,
 	@Column(name = "NUM_LANCAMENTO")
 	val numberLaunch: BigDecimal,
 	@Column(name = "COD_PRODUTO")
@@ -31,6 +31,6 @@ data class MovimentoManualPK(
 	val codCosif: UUID
 ) : Serializable {
 	companion object {
-		private const val serialVersionUID = -261016760810L
+		private const val serialVersionUID = -126L
 	}
 }

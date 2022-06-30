@@ -19,3 +19,7 @@ NOTE: As I have a superficial knowledge of the Oracle database I adapted the dat
 - **[Required]** [JDK 18](https://www.oracle.com/java/technologies/downloads/#java18)
 - **[Required]** [React Js](https://pt-br.reactjs.org/)
 - **[Required]** [Node Js 16.15.1](https://nodejs.org/en/download/)
+
+# Run the project
+
+To run the software on linux open a terminal and navigate to the main folder and type the command: `make run`. 

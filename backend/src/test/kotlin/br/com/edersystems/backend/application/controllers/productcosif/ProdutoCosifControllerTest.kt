@@ -22,7 +22,7 @@ import org.springframework.core.io.ClassPathResource
 import org.springframework.http.HttpStatus
 import org.springframework.jdbc.datasource.init.ScriptUtils
 
-internal class ProductCosifControllerTest : ControllerConfigurationTests() {
+internal class ProdutoCosifControllerTest : ControllerConfigurationTests() {
 	@Test
 	fun `Given a valid codProduto and classification, should return http status Created`() {
 		val filePath = "/sql/product-cosif/CREATE_PRODUCT_TO_CREATE_COSIF_PRODUCT.sql"

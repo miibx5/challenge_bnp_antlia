@@ -18,7 +18,6 @@ import br.com.edersystems.backend.builders.ProdutoCosifBuilder
 import br.com.edersystems.backend.builders.ProdutoCosifPKBuilder
 import br.com.edersystems.backend.configuration.IntegrationConfigurationTests
 import java.math.BigDecimal
-import java.time.LocalDateTime
 import java.util.UUID
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should not be`
@@ -32,7 +31,7 @@ internal class IMovimentoManualRepositoryTest : IntegrationConfigurationTests() 
 	private lateinit var repository: IMovimentoManualRepository
 
 	@Autowired
-	private lateinit var IProdutoCosifRepository: IProdutoCosifRepository
+	private lateinit var cosifRepository: IProdutoCosifRepository
 
 	@Autowired
 	private lateinit var produtoRepository: IProdutoRepository
@@ -43,18 +42,17 @@ internal class IMovimentoManualRepositoryTest : IntegrationConfigurationTests() 
 		val codProduto = produtoRepository.save(productToBeSave).id!!
 		val produtoCosifToBeSave = ProdutoCosifBuilder.withId(ProdutoCosifPKBuilder.withCodProduct(codProduto).build())
 			.withClassification("CL4Q14").withStatus(true).build()
-		val produtoCosif = IProdutoCosifRepository.save(produtoCosifToBeSave).id.codCosif
+		val produtoCosif = cosifRepository.save(produtoCosifToBeSave).id.codCosif
 		val movementManalPk = MovimentoManualPKBuilder.withCodCosif(produtoCosif)
 			.withCodProduto(codProduto)
-			.withMonth(4)
-			.withYear(2022)
-			.withNumberLaunch(BigDecimal.valueOf(10000))
+			.withMonth(BigDecimal.valueOf(1))
+			.withYear(BigDecimal.valueOf(2022))
+			.withNumberLaunch(BigDecimal("001"))
 			.build()
 		val movementManualToBeSave = MovimentoManualBuilder
 			.withId(movementManalPk)
 			.withUserCode("CL4Q3ELBR")
 			.withDescription("Movimentação de Teste")
-			.withDateMovement(LocalDateTime.of(2022, 4, 20, 0, 0, 0))
 			.withAmount(BigDecimal.valueOf(10000))
 			.build()
 
@@ -72,15 +70,14 @@ internal class IMovimentoManualRepositoryTest : IntegrationConfigurationTests() 
 		val produtoCosif = UUID.randomUUID()
 		val movementManalPk = MovimentoManualPKBuilder.withCodCosif(produtoCosif)
 			.withCodProduto(codProduto)
-			.withMonth(4)
-			.withYear(2022)
+			.withMonth(BigDecimal.valueOf(4))
+			.withYear(BigDecimal.valueOf(2022))
 			.withNumberLaunch(BigDecimal.valueOf(10000))
 			.build()
 		val movementManualToBeSave = MovimentoManualBuilder
 			.withId(movementManalPk)
 			.withUserCode("CL4Q3ELBR")
 			.withDescription("Movimentação de Teste")
-			.withDateMovement(LocalDateTime.of(2022, 4, 20, 0, 0, 0))
 			.withAmount(BigDecimal.valueOf(10000))
 			.build()
 
