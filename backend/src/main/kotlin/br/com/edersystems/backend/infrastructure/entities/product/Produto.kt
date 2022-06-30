@@ -27,7 +27,7 @@ data class Produto(
 	@Column(name = "DES_PRODUTO")
 	val description: String,
 	@Column(name = "STA_STATUS")
-	val status: Boolean,
+	val status: Boolean = true,
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@Column(name = "COD_PRODUTO")

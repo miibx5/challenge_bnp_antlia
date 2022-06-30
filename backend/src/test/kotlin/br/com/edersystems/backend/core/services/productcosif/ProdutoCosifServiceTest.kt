@@ -43,7 +43,7 @@ internal class ProdutoCosifServiceTest : IntegrationConfigurationTests() {
 	}
 
 	@Test
-	fun `Given an invalid codProduto and a valid classification, should not save produto cosif in database`() {
+	fun `Given an invalid codProduto and a valid classification, throw DataIntegrityViolationException`() {
 		val filePath = "product-cosif/request/create_product_cosif_with_http_status_unprocessable_entity"
 		val requestBody = readJson(filePath)
 		val request = mapper.readValue(requestBody, CreateProductCosifRequest::class.java)

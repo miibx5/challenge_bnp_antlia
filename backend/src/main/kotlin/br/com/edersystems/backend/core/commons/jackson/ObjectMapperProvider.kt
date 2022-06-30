@@ -27,6 +27,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.databind.ser.std.DateSerializer
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinFeature
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.math.BigInteger
 import java.time.LocalDate
@@ -34,7 +36,7 @@ import java.time.LocalDateTime
 import java.util.Date
 
 object ObjectMapperProvider {
-
+	private const val FIVE_HUNDRED_AND_TWELVE = 512
 	fun provider(): ObjectMapper {
 		val objectMapper = jacksonObjectMapper().apply {
 			propertyNamingStrategy = LOWER_CAMEL_CASE
@@ -43,6 +45,17 @@ object ObjectMapperProvider {
 					indentArraysWith(DefaultPrettyPrinter.FixedSpaceIndenter.instance)
 					indentObjectsWith(DefaultIndenter("  ", "\n"))
 				}
+			)
+
+			registerModule(
+				KotlinModule.Builder()
+					.withReflectionCacheSize(FIVE_HUNDRED_AND_TWELVE)
+					.configure(KotlinFeature.NullToEmptyCollection, false)
+					.configure(KotlinFeature.NullToEmptyMap, false)
+					.configure(KotlinFeature.NullIsSameAsDefault, false)
+					.configure(KotlinFeature.SingletonSupport, true)
+					.configure(KotlinFeature.StrictNullChecks, false)
+					.build()
 			)
 
 			setSerializationInclusion(JsonInclude.Include.NON_NULL)
