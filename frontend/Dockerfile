@@ -1,4 +1,4 @@
-FROM node:16-alpine3.13
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 5000
 
 CMD [ "yarn", "start" ]

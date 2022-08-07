@@ -13,13 +13,14 @@ val snippetsDir = file("build/generated-snippets")
 val springmockkVersion: String by project
 
 plugins {
-	id("org.springframework.boot") version "2.7.0"
-	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	val kotlinVersion = "1.7.10"
+	id("org.springframework.boot") version "2.7.2"
+	id("io.spring.dependency-management") version "1.0.12.RELEASE"
 	id("org.asciidoctor.convert") version "1.5.8"
-	id("io.gitlab.arturbosch.detekt").version("1.20.0")
-	kotlin("jvm") version "1.7.0"
-	kotlin("plugin.spring") version "1.7.0"
-	kotlin("plugin.jpa") version "1.7.0"
+	id("io.gitlab.arturbosch.detekt").version("1.21.0")
+	kotlin("jvm") version kotlinVersion
+	kotlin("plugin.spring") version kotlinVersion
+	kotlin("plugin.jpa") version kotlinVersion
 }
 
 group = "br.com.edersystems"

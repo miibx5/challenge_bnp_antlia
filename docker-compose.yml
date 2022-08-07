@@ -36,16 +36,18 @@ services:
             - ./postgres/postgres-multiple-databases.sh:/docker-entrypoint-initdb.d/postgres-multiple-databases.sh
             - dataBaseApplication:/var/lib/postgresql/data
     frontend-app:
-        build: ./frontend
+        build:
+            context: ./frontend
+            dockerfile: ./Dockerfile
+        command: yarn start
         container_name: movement-frontend-application
         depends_on:
             - backend-app
         ports:
-            - "8000:8000"
+            - "5000:5000"
         volumes:
-            - ./frontend/src:/app/src
-            - ./frontend/public/assets:/app/public/assets
-            - ./frontend/app/node_modules
+            - ./frontend/:/usr/src/app
+            - ./frontend/public/assets:/usr/src/app/public/assets
         stdin_open: true
         tty: true
         env_file:

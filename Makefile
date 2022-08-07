@@ -20,4 +20,4 @@ run:
 	@$(MAKE) build-backend
 	@$(MAKE) build-fronted
 	docker-compose up -d --build
-	docker logs ${BACK_END_APPLICATION_CONTAINER_NAME} --follow
+	docker logs ${FRONT_END_APPLICATION_CONTAINER_NAME} --follow
