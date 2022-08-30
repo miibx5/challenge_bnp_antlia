@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import Dashboard from '../dashboard/Dashboard'
-
 function App() {
     const [count, setCount] = useState(0)
 
     return (
-        <Dashboard />
+        <div className="App">
+            <h1>FRONT END APPLICATION</h1>
+        </div>
     )
 }
 

@@ -28,25 +28,27 @@ fun BigDecimal.setScaleThree(): BigDecimal = this.setScale(THREE, RoundingMode.H
 fun BigDecimal.setScaleFour(): BigDecimal = this.setScale(FOUR, RoundingMode.HALF_EVEN)
 
 fun BigDecimal.moneyFormat(): String {
-	val format: NumberFormat = NumberFormat.getCurrencyInstance()
-	return format.format(this)
+    val format: NumberFormat = NumberFormat.getCurrencyInstance()
+    return format.format(this)
 }
 
 fun BigDecimal.putZero(): String {
-	val stringNumberToReturn = StringBuilder()
-	when {
-		this.toInt() < BigDecimal.TEN.toInt() -> {
-			stringNumberToReturn.append("00${this.toInt()}")
-		}
-		((this.toInt() >= BigDecimal.TEN.toInt()) && (this.toInt() < HUNDRED)) -> {
-			stringNumberToReturn.append("0${this.toInt()}")
-		}
-		else -> {
-			stringNumberToReturn.append(this.toInt())
-		}
-	}
+    val stringNumberToReturn = StringBuilder()
+    when {
+        this.toInt() < BigDecimal.TEN.toInt() -> {
+            stringNumberToReturn.append("00${this.toInt()}")
+        }
 
-	return stringNumberToReturn.toString()
+        ((this.toInt() >= BigDecimal.TEN.toInt()) && (this.toInt() < HUNDRED)) -> {
+            stringNumberToReturn.append("0${this.toInt()}")
+        }
+
+        else -> {
+            stringNumberToReturn.append(this.toInt())
+        }
+    }
+
+    return stringNumberToReturn.toString()
 }
 
 fun BigDecimal.isValid() = (Objects.nonNull(this) && (this.compareTo(BigDecimal.ZERO) > BigDecimal.ZERO.toInt()))
