@@ -3,8 +3,13 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    base: 'http://localhost:2109/movements/',
+    plugins: [
+        react({ include: "**/*.tsx" })
+    ],
     server: {
+        host: true,
+        port: 4400,
         watch: {
             usePolling: true
         }

@@ -24,7 +24,7 @@ plugins {
 }
 
 group = "br.com.edersystems"
-java.sourceCompatibility = JavaVersion.VERSION_18
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
@@ -85,7 +85,7 @@ tasks {
 	withType<KotlinCompile> {
 		kotlinOptions {
 			freeCompilerArgs = listOf("-Xjsr305=strict")
-			jvmTarget = "18"
+			jvmTarget = "17"
 		}
 	}
 

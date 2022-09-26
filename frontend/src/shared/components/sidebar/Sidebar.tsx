@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Movement Application
+                        Controle de Movimentos
                     </Typography>
                 </Toolbar>
             </AppBar>
