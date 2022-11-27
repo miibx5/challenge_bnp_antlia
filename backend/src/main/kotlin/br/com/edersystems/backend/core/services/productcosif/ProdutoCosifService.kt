@@ -46,18 +46,24 @@ class ProdutoCosifService(
 	private fun validateCodProduct(codProduct: UUID): ExceptionError? {
 		return if (Objects.isNull(codProduct)) {
 			createError(MessageCodeUtil.PROD_0003)
-		} else null
+		} else {
+		    null
+		}
 	}
 
 	private fun validateExistsProduct(codProduct: UUID): ExceptionError? {
 		return if (produtoService.isExistsProduct(codProduct).not()) {
 			createError(MessageCodeUtil.PROD_0002, codProduct)
-		} else null
+		} else {
+		    null
+		}
 	}
 
 	private fun validateClassification(classification: String): ExceptionError? {
 		return if (classification.isBlank()) {
 			createError(MessageCodeUtil.PROD_0004)
-		} else null
+		} else {
+		    null
+		}
 	}
 }

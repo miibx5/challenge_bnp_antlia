@@ -11,26 +11,26 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.infrastructure.entities.movement
 
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.UUID
-import javax.persistence.Column
-import javax.persistence.Embeddable
 
 @Embeddable
 data class MovimentoManualPK(
-	@Column(name = "DAT_MES")
-	val month: BigDecimal,
-	@Column(name = "DAT_ANO")
-	val year: BigDecimal,
-	@Column(name = "NUM_LANCAMENTO")
-	val numberLaunch: BigDecimal,
-	@Column(name = "COD_PRODUTO")
-	val codProduto: UUID,
-	@Column(name = "COD_COSIF")
-	val codCosif: UUID
+    @Column(name = "DAT_MES")
+    val month: BigDecimal,
+    @Column(name = "DAT_ANO")
+    val year: BigDecimal,
+    @Column(name = "NUM_LANCAMENTO")
+    val numberLaunch: BigDecimal,
+    @Column(name = "COD_PRODUTO")
+    val codProduto: UUID,
+    @Column(name = "COD_COSIF")
+    val codCosif: UUID
 ) : Serializable {
-	companion object {
-		private const val serialVersionUID = -126L
-	}
+    companion object {
+        private const val serialVersionUID = -123L
+    }
 }

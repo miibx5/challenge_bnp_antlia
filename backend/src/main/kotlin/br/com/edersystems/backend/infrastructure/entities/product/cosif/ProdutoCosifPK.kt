@@ -11,19 +11,19 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.infrastructure.entities.product.cosif
 
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
 import java.io.Serializable
 import java.util.UUID
-import javax.persistence.Column
-import javax.persistence.Embeddable
 
 @Embeddable
 class ProdutoCosifPK(
-	@Column(name = "COD_PRODUTO")
-	val codProduto: UUID,
-	@Column(name = "COD_COSIF")
-	val codCosif: UUID = UUID.randomUUID()
+    @Column(name = "COD_PRODUTO")
+    val codProduto: UUID,
+    @Column(name = "COD_COSIF")
+    val codCosif: UUID = UUID.randomUUID()
 ) : Serializable {
-	companion object {
-		private const val serialVersionUID = -91L
-	}
+    companion object {
+        private const val serialVersionUID = -24271L
+    }
 }

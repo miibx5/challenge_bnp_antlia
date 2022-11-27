@@ -10,7 +10,6 @@ spring:
         url: ${JDBC_DATABASE_URL}
         username: ${DATABASE_USERNAME}
         password: ${DATABASE_PASSWORD}
-        sql-script-encoding: UTF-8
     # JACKSON properties
     jackson:
         property-naming-strategy: LOWER_CAMEL_CASE
@@ -32,6 +31,9 @@ spring:
         level:
             org.springframework: info
             org.hibernate: debug
+    sql:
+        init:
+            encoding: UTF-8
 
 # Server Configuration
 server:

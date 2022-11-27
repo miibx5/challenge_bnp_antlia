@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: 'http://localhost:2109/movements/',
+    base: 'http://localhost:4400/movements/',
     plugins: [
         react({ include: "**/*.tsx" })
     ],

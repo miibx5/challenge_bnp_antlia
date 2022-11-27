@@ -71,12 +71,16 @@ class ProdutoService(private val repository: IProdutoRepository) : AbstractServi
 	private fun validateProductDescription(description: String): ExceptionError? {
 		return if (description.isBlank()) {
 			createError(MessageCodeUtil.PROD_0001)
-		} else null
+		} else {
+		    null
+		}
 	}
 
 	private fun validatePatchProductRequest(request: PatchProductRequest): ExceptionError? {
 		return if ((request.description?.isBlank() == true) && (Objects.isNull(request.status))) {
 			createError(MessageCodeUtil.DEFAULT)
-		} else null
+		} else {
+		    null
+		}
 	}
 }

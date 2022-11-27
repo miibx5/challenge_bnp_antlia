@@ -11,27 +11,27 @@ Codification.................: UTF-8
 */
 package br.com.edersystems.backend.infrastructure.entities.product.cosif
 
+import jakarta.persistence.Column
+import jakarta.persistence.EmbeddedId
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
-import javax.persistence.Table
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 
 @Entity
 @Table(name = "PRODUTO_COSIF")
 data class ProdutoCosif(
-	@EmbeddedId
-	val id: ProdutoCosifPK,
-	@Column(name = "COD_CLASSIFICACAO")
-	val classification: String,
-	@Column(name = "STA_STATUS")
-	val status: Boolean,
-	@CreationTimestamp
-	@Column(name = "CREATED_AT")
-	val createdAt: LocalDateTime? = null,
-	@UpdateTimestamp
-	@Column(name = "UPDATED_AT")
-	val updatedAt: LocalDateTime? = null
+    @EmbeddedId
+    val id: ProdutoCosifPK,
+    @Column(name = "COD_CLASSIFICACAO")
+    val classification: String,
+    @Column(name = "STA_STATUS")
+    val status: Boolean,
+    @CreationTimestamp
+    @Column(name = "CREATED_AT")
+    val createdAt: LocalDateTime? = null,
+    @UpdateTimestamp
+    @Column(name = "UPDATED_AT")
+    val updatedAt: LocalDateTime? = null
 )

@@ -13,9 +13,9 @@ val snippetsDir = file("build/generated-snippets")
 val springmockkVersion: String by project
 
 plugins {
-	val kotlinVersion = "1.7.10"
-	id("org.springframework.boot") version "2.7.2"
-	id("io.spring.dependency-management") version "1.0.12.RELEASE"
+	val kotlinVersion = "1.7.21"
+	id("org.springframework.boot") version "3.0.0"
+	id("io.spring.dependency-management") version "1.1.0"
 	id("org.asciidoctor.convert") version "1.5.8"
 	id("io.gitlab.arturbosch.detekt").version("1.21.0")
 	kotlin("jvm") version kotlinVersion
