@@ -16,7 +16,7 @@ plugins {
     val kotlinVersion = "1.7.21"
     id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
-    id("org.asciidoctor.jvm.convert") version "3.3.2"
+    id("org.asciidoctor.convert") version "2.4.0"
     id("io.gitlab.arturbosch.detekt").version("1.22.0")
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
